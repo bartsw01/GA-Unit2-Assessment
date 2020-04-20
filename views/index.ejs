@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Unit 2 Assessment</title>
+  <title> Project 2 Assessment </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
+
 <body>
-	<h1>To Do List</h1>
-	
-	<% todos.forEach((todo) => { %>
-		<li>
-			<%= todo.todo %>
-			-
-			<%= todo.done ? 'done' : 'not done' %>
-		</li>
-    <% })%>
-    <form action="/todos" method="POST" autocomplete="off">
-        <input type="text" name="todo">
-        <button type="submit">Add To Do Item</button>
+
+  <h1>To Do List</h1>
+  <% if (!todos.length) { %>
+    <h3> There are no To Do's yet </h3>
+    <% } else if (todos.length >= 1){ %>
+  <ul>
+
+    <% todos.forEach((t, idx) => { %>
+    <li>
+      <p> <%= t.todo %>
+        <span class="notDone">
+          - <%= t.done ? 'done' : 'not done' %>
+        </span>
+      </p>
+
+      <form action="/<%= idx %>?_method=DELETE" class="delete-form" method="POST">
+        <button type="submit"> Delete </button>
+      </form>
+
+    </li>
+    <% }); %>
+
+  </ul>
+
+  
+  
+  <% } %>
+
+  <hr>
+
+  <form action="/" method="POST" autocomplete="on">
+    <input type="text" maxlength="20" name="todo" required>
+    <button type="submit"> Add To Do </button>
+  </form>
+
+
 
 </body>
+
 </html>
